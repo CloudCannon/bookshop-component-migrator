@@ -1,0 +1,17 @@
+spec:
+  structures:
+    - content_blocks
+  label: markdown-block
+  description: ""
+  icon: "nature_people"
+  tags: []
+blueprint:
+  0_markdown: >-
+    ## Some markdown content
+    
+    
+    Which should markdownify the entire divs contents
+
+_inputs:
+  0_markdown:
+    type: markdown

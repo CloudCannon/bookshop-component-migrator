@@ -1,0 +1,84 @@
+spec:
+  label: unknown
+  description: ''
+  icon: nature_people
+  structures:
+    - content_blocks
+  tags: []
+blueprint:
+  0_list:
+    - '3': The Best Git-based CMS for Static Sites
+      '4': Keep developers and editors in sync with the power of Git.
+      '5': Learn more
+      1_alt: The Best Git-based CMS for Static Sites
+      2_url: /images/logos/ssgs/git.svg?_cchid=03cdb0c30c9e4f312d434284e2aafac6
+      6_url: /git-cms/
+    - '3': The Most Intuitive CMS for Astro
+      '4': >-
+        Bring your own component framework: Astro offers first-class support for
+        front-end tools like React, Vue, Svelte, and Tailwind CSS.
+      '5': Learn more
+      1_alt: The Most Intuitive CMS for Astro
+      2_url: 'https://cc-dam.imgix.net/astro-dark.svg'
+      6_url: /astro-cms/
+    - '3': The Most Intuitive CMS for Hugo
+      '4': >-
+        A Go-based framework for building static sites, with amazing build speed
+        and flexibility.
+      '5': Learn more
+      1_alt: The Most Intuitive CMS for Hugo
+      2_url: /images/icons/ssgs/hugo.svg?_cchid=8b24eec7a4e9e6507210da8d24014375
+      6_url: /hugo-cms/
+    - '3': The Most Intuitive CMS for Next.js
+      '4': >-
+        Bring the power of full-stack to the frontend, and use your existing
+        React components for your static site..
+      '5': Learn more
+      1_alt: The Most Intuitive CMS for Next.js
+      2_url: /images/icons/ssgs/nextjs.svg?_cchid=214c4de06be876d4b9f0bdce3c561deb
+      6_url: /nextjs-cms/
+    - '3': The Most Intuitive CMS for Jekyll
+      '4': >-
+        Built with Ruby, Jekyll is a simple, blog-aware, static site generator
+        for personal sites, projects, or organizations.
+      '5': Learn more
+      1_alt: The Most Intuitive CMS for Jekyll
+      2_url: /images/icons/ssgs/jekyll.svg?_cchid=f89589fef6a27853ce6806b80a314671
+      6_url: /jekyll-cms/
+    - '3': The Most Intuitive CMS for MkDocs
+      '4': >-
+        A fast and simple static site generator that's geared towards building
+        project documentation.
+      '5': Learn more
+      1_alt: The Most Intuitive CMS for MkDocs
+      2_url: /images/icons/ssgs/mkdocs.svg?_cchid=5f28fe816cddc0ae5a62c92e7b136fc6
+      6_url: /mkdocs-cms/
+    - '3': The Most Intuitive CMS for Nuxt.js
+      '4': An intuitive web framework for Vue.js.
+      '5': Learn more
+      1_alt: The Most Intuitive CMS for Nuxt.js
+      2_url: /images/icons/ssgs/nuxtjs.svg?_cchid=55bb3bade712e37e5f71b19d27391fda
+      6_url: /nuxtjs-cms/
+    - '3': The Most Intuitive CMS for 11ty
+      '4': >-
+        The fastest JavaScript-based static site generator available, with
+        support for a wide range of templating languages.
+      '5': Learn more
+      1_alt: The Most Intuitive CMS for 11ty
+      2_url: /images/icons/ssgs/11ty.svg?_cchid=f78e7b78b904942ae70f2a67147a1d58
+      6_url: /eleventy-cms/
+    - '3': The Most Intuitive CMS for Gatsby
+      '4': >-
+        A React-based framework with performance, scalability, and security
+        built-in.
+      '5': Learn more
+      1_alt: The Most Intuitive CMS for Gatsby
+      2_url: /images/icons/ssgs/gatsby.svg?_cchid=701037e14fc320e5066218c61471020c
+      6_url: /gatsby-cms/
+    - '3': The Most Intuitive CMS for SvelteKit
+      '4': 'Fast and flexible, SvelteKit is powered by Svelte and Vite.'
+      '5': Learn more
+      1_alt: The Most Intuitive CMS for SvelteKit
+      2_url: /images/icons/ssgs/sveltekit.svg?_cchid=fcaa3a95e659979da3b18589d5cd57de
+      6_url: /sveltekit-cms/
+_inputs: {}

@@ -1,0 +1,26 @@
+spec:
+  structures:
+    - content_blocks
+  label: unknown
+  description: ""
+  icon: "nature_people"
+  tags: []
+blueprint:
+  0: Rapidly build & edit pages visually!
+  1_markdown: >-
+    CloudCannon’s visual editor interface ensures you and your team can
+    create and edit pages independently, with the confidence of seeing your
+    changes instantly.
+  2: Take control of your SEO
+  3_markdown: >-
+    Ensure your landing pages rank at the top of google by using
+    CloudCannon’s custom fields to optimise your SEO with each page publish.
+  4_url: https://player.vimeo.com/progressive_redirect/playback/760400768/rendition/720p/file.mp4?loc=external&signature=8acbfc19bc57c1b77bc21aaeb04d362b706a412f99668afd03298d05b63c4db9
+  5_title: CloudCannon visual editing animation
+
+_inputs:
+  1_markdown:
+    type: markdown
+  3_markdown:
+    type: markdown
+

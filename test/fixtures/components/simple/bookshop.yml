@@ -1,0 +1,11 @@
+spec:
+  structures:
+    - content_blocks
+  label: unknown
+  description: ""
+  icon: "nature_people"
+  tags: []
+blueprint:
+  0: Test with two lines
+
+_inputs: {}

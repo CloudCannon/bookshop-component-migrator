@@ -1,0 +1,10 @@
+spec:
+  structures:
+    - content_blocks
+  label: unknown
+  description: ""
+  icon: "nature_people"
+  tags: []
+blueprint: {}
+
+_inputs: {}

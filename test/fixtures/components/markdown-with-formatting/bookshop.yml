@@ -1,0 +1,17 @@
+spec:
+  structures:
+    - content_blocks
+  label: markdown-block
+  description: ""
+  icon: "nature_people"
+  tags: []
+blueprint:
+  0_markdown: "## Some _markdown_ content"
+  1: "text"
+  2_markdown: "[Privacy Policy.](/policies/privacy-policy)"
+
+_inputs:
+  0_markdown:
+    type: markdown
+  2_markdown:
+    type: markdown

@@ -1,0 +1,18 @@
+spec:
+  structures:
+    - content_blocks
+  label: unknown
+  description: ""
+  icon: "nature_people"
+  tags: []
+blueprint:
+  "0_alt": "Icon with a hand under a lightbulb"
+  "1_url": "https://cc-dam.imgix.net/entrepreneurial-spirit-2.svg?auto=compress&auto=format&w=316&dpr=1"
+  "2": "Entrepreneurial spirit"
+  "3_markdown": >-
+    _Freedom with accountability_ Our winning formula is a mixture of autonomy and collective responsibility. We thrive on setting ambitious targets, and then working together to solve problems, think critically, and keep each other accountable.
+
+_inputs:
+  3_markdown:
+    type: markdown
+

@@ -1,0 +1,16 @@
+spec:
+  structures:
+    - content_blocks
+  label: unknown
+  description: ""
+  icon: "nature_people"
+  tags: []
+blueprint:
+  0: Your team. In sync.
+  1: The visual CMS that gives content teams full autonomy on your developer-approved tech stack.
+  2: Book a demo
+  3_url: /book-a-demo/
+  4: Get started with a free trial
+  5_url: https://app.cloudcannon.com/register
+
+_inputs: {}

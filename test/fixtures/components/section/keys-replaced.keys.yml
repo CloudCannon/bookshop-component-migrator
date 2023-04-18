@@ -1,0 +1,13 @@
+key:
+  structures:
+    - content_blocks
+  label: section
+  description: ""
+  icon: "nature_people"
+  tags: []
+blueprint:
+  heading: "Title"
+  heading_subtext: "with span"
+  subheading: "Description..."
+
+_inputs: {}

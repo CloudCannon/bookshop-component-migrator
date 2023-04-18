@@ -1,0 +1,14 @@
+spec:
+  label: unknown
+  description: ''
+  icon: nature_people
+  structures:
+    - content_blocks
+  tags: []
+blueprint:
+  0_list:
+    - 1_markdown: "#### DroneHangar™"
+    - 1_markdown: "#### SkyDome® Manager"
+_inputs:
+  0_list.1_markdown:
+    type: "markdown"
