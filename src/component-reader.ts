@@ -88,7 +88,7 @@ function formatElement(el: any, innerContent: string, data: Record<string, any>,
     return `<${el.localName}${attrs}>${innerContent}</${el.localName}>`;
 }
 
-export function parseDomNode(node: any, templateContents: boolean): Record<string, any> {
+export function parseDomNode(node: any, templateContents: boolean, depth = 0): Record<string, any> {
     const data: Record<string, any> = {};
 
     if (node.nodeName === '#text') {
@@ -136,9 +136,10 @@ export function parseDomNode(node: any, templateContents: boolean): Record<strin
             data
         };
     }
+
     const el = node as Element;
     if (!selfClosingTags[el.localName] && isMarkdownElement(el) && templateContents) {
-        const children = Object.values(el.childNodes).map((childNode: any) => parseDomNode(childNode, false))
+        const children = Object.values(el.childNodes).map((childNode: any) => parseDomNode(childNode, false, depth + 1))
         const innerHTML: string[] = children.map((block) => block?.component || '');
         const outerHTML = formatElement(el, innerHTML.join(''), data, false);
         const {
@@ -146,6 +147,7 @@ export function parseDomNode(node: any, templateContents: boolean): Record<strin
             content: markdownHTML, 
             suffix
         } = getTextAndSurroundingWhitespace(outerHTML);
+
         const markdown = convertHtmlToMarkdown(prefix + markdownHTML);
         const dataId = getUuid();
         data[dataId] = {
@@ -160,7 +162,7 @@ export function parseDomNode(node: any, templateContents: boolean): Record<strin
         };
     }
 
-    const children = Object.values(el.childNodes).map((childNode: any) => parseDomNode(childNode, templateContents))
+    const children = Object.values(el.childNodes).map((childNode: any) => parseDomNode(childNode, templateContents, depth + 1))
     if (doesElementHaveRepeatingChildren(el)) {
         const values: any[] = [];
 
@@ -194,7 +196,6 @@ export function parseDomNode(node: any, templateContents: boolean): Record<strin
         };
     }
 
-
     const innerHTML: string[] = []
     const processed: Record<string, any>[] = mergeSubsequentMarkdownBlocks(children);
     
@@ -213,7 +214,8 @@ export function parseDomNode(node: any, templateContents: boolean): Record<strin
 }
 
 export function parseComponent(el: any) : Record<string, any> {
-    const parsed = parseDomNode(el, true);
+    const parsed = parseDomNode(el, true, 0);
+
     const id: string = getComponentId(el);
     return {
         id,

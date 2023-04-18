@@ -63,10 +63,12 @@ export function convertHtmlToMarkdown(html: string, turndownOptions: Record<stri
 
 export function mergeSubsequentMarkdownBlocks(children: Record<string,any>[]): any[] {
     const merged: Record<string,any>[] = [];
+    let pendingWhitespace = null;
     children.forEach((block) => {
         const lastBlock = merged[merged.length - 1];
         if (lastBlock?.type === 'markdown') {
             if (block.type === 'whitespace') {
+                pendingWhitespace = block;
                 return
             }
 
@@ -76,17 +78,22 @@ export function mergeSubsequentMarkdownBlocks(children: Record<string,any>[]): a
 
                 const lastBlockKey = Object.keys(lastBlock.data)[0];
                 lastBlock.data[lastBlockKey].value += `\n\n${currentValue}`
+                pendingWhitespace = null;
                 return;
             }
+        }
+
+        if (pendingWhitespace) {
+            merged.push(pendingWhitespace)
+            pendingWhitespace = null;
         }
 
         merged.push(block);
     });
 
-    const lastChild = children[children.length - 1];
-    const lastMerged = merged[merged.length - 1];
-    if (lastChild !== lastMerged && lastChild.type === 'whitespace') {
-        merged.push(lastChild);
+    if (pendingWhitespace) {
+        merged.push(pendingWhitespace)
     }
+
     return merged;
 }

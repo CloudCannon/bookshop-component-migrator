@@ -73,7 +73,9 @@ export class TemplateEngine {
 				const newParents = [...parents, rootId];
 				const arrayKey = `item_${parents.length}`;
 				const innerComponent = dataRef.component;
-				component = component.replace(key, this.loop(id, arrayKey, innerComponent));
+				
+				const spaceBeforeKey = component.match(new RegExp(`([\t|\s]*)${key}`))?.[1] || '';
+				component = component.replace(key, this.loop(id, arrayKey, innerComponent, `\n${spaceBeforeKey}`));
 
 				const idLookup: Record<string, string> = {}
 				const newPrefix = this.objectPrefixNotation(arrayKey);
@@ -124,7 +126,7 @@ export class TemplateEngine {
 		throw new Error('Not yet implmented');
 	}
 
-	loop(_id: string, _arrayKey: string, _innerComponent: string) : string {
+	loop(_id: string, _arrayKey: string, _innerComponent: string, _whitespace: string) : string {
 		throw new Error('Not yet implmented');
 	}
 
@@ -142,8 +144,8 @@ export class LiquidTemplateEngine extends TemplateEngine {
 		return `{{ ${id} | markdownify }}`
 	}
 
-	loop(id: string, arrayKey: string, innerComponent: string) {
-		return `{% for ${arrayKey} in ${id} %}\n\t\t${innerComponent}\n\t{% endfor %}`
+	loop(id: string, arrayKey: string, innerComponent: string, whitespace: string) {
+		return `{% for ${arrayKey} in ${id} %}${whitespace}${innerComponent}${whitespace}{% endfor %}`
 	}
 
 	objectPrefixNotation(id: string) {
@@ -159,8 +161,8 @@ export class GoTemplateEngine extends TemplateEngine {
 		return `{{ .${id} | markdownify }}`
 	}
 
-	loop(id: string, _arrayKey: string, innerComponent: string) {
-		return `{{ range .${id} }}\n\t\t${innerComponent}\n\t{{ end }}`
+	loop(id: string, _arrayKey: string, innerComponent: string, whitespace: string) {
+		return `{{ range .${id} }}${whitespace}${innerComponent}${whitespace}{{ end }}`
 	}
 
 	objectPrefixNotation(_id: string) {
