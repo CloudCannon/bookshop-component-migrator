@@ -1,7 +1,7 @@
 {
   "name": "bookshop-component-migrator",
   "description": "A tool to take raw html and produce a bookshop component",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib",
