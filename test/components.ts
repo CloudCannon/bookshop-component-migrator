@@ -36,6 +36,10 @@ const components = [
   'repeating-products-reversed',
   'repeating-svgs',
   'repeating-recursive',
+  'repeating-space-indented',
+  'repeating-not-indented',
+  'non-repeating-ids',
+  'very-deep-trees'
 ]
 
 components.forEach((componentName) => {

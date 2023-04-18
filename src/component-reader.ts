@@ -88,7 +88,7 @@ function formatElement(el: any, innerContent: string, data: Record<string, any>,
     return `<${el.localName}${attrs}>${innerContent}</${el.localName}>`;
 }
 
-export function parseDomNode(node: any, templateContents: boolean, depth = 0): Record<string, any> {
+export function parseDomNode(node: any, templateContents: boolean, depth: number): Record<string, any> {
     const data: Record<string, any> = {};
 
     if (node.nodeName === '#text') {
@@ -140,7 +140,7 @@ export function parseDomNode(node: any, templateContents: boolean, depth = 0): R
     const el = node as Element;
     if (!selfClosingTags[el.localName] && isMarkdownElement(el) && templateContents) {
         const children = Object.values(el.childNodes).map((childNode: any) => parseDomNode(childNode, false, depth + 1))
-        const innerHTML: string[] = children.map((block) => block?.component || '');
+        const innerHTML: string[] = children.map((block) => block.component);
         const outerHTML = formatElement(el, innerHTML.join(''), data, false);
         const {
             prefix, 
@@ -172,7 +172,7 @@ export function parseDomNode(node: any, templateContents: boolean, depth = 0): R
                 return;
             }
 
-            block.data = matchRepeatingBlockKeys(block.data, first?.data);
+            block.data = matchRepeatingBlockKeys(block.data, first.data);
             values.push(block.data);
         });
 
@@ -181,13 +181,15 @@ export function parseDomNode(node: any, templateContents: boolean, depth = 0): R
             type: 'array',
             value: values,
             id: getUuid(),
-            component: first?.component || ''
+            component: first.component
         };
 
         const prefix = children[0].type === 'whitespace'
-            ? children[0].component : '';
+            ? children[0].component
+            : '';
         const suffix = children[children.length - 1].type === 'whitespace'
-            ? children[children.length - 1].component : '';
+            ? children[children.length - 1].component
+            : '';
 
         return {
             type: `loop`,

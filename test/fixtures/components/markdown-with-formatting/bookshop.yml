@@ -9,7 +9,9 @@ blueprint:
   0_markdown: "## Some _markdown_ content"
   1: "text"
   2_markdown: "[Privacy Policy.](/policies/privacy-policy)"
-
+  3: "Custom attr"
+  4: "test"
+  5_url: "/policies/privacy-policy"
 _inputs:
   0_markdown:
     type: markdown

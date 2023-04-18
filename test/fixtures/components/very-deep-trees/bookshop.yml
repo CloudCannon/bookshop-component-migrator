@@ -1,0 +1,15 @@
+spec:
+  label: unknown
+  description: ''
+  icon: nature_people
+  structures:
+    - content_blocks
+  tags: []
+blueprint:
+  0_markdown: "Test"
+  1_markdown: "Test"
+_inputs:
+  0_markdown:
+    type: "markdown"
+  1_markdown:
+    type: "markdown"

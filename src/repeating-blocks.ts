@@ -1,4 +1,4 @@
-function getElementSignature(el, depth = 4) : string {
+function getElementSignature(el, depth: number) : string {
     if (depth <= 0) {
         return '';
     }

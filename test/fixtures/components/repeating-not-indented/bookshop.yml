@@ -1,0 +1,42 @@
+spec:
+  label: unknown
+  description: ''
+  icon: nature_people
+  structures:
+    - content_blocks
+  tags: []
+blueprint:
+  0_list:
+    - 1_list:
+        - '2': Heading 1
+          3_markdown: Markdown example 1
+          4_list:
+            - '5': '1'
+              6_url: /1/
+            - '5': '2'
+              6_url: /2/
+        - '2': Heading 2
+          3_markdown: Markdown example 2
+          4_list:
+            - '5': '3'
+              6_url: /3/
+            - '5': '4'
+              6_url: /4/
+    - 1_list:
+        - '2': Heading 3
+          3_markdown: Markdown example 3
+          4_list:
+            - '5': '5'
+              6_url: /5/
+            - '5': '6'
+              6_url: /6/
+        - '2': Heading 4
+          3_markdown: Markdown example 4
+          4_list:
+            - '5': '7'
+              6_url: /7/
+            - '5': '8'
+              6_url: /8/
+_inputs:
+  0_list.1_list.3_markdown:
+    type: markdown

@@ -74,8 +74,8 @@ export class TemplateEngine {
 				const arrayKey = `item_${parents.length}`;
 				const innerComponent = dataRef.component;
 				
-				const spaceBeforeKey = component.match(new RegExp(`([\t|\s]*)${key}`))?.[1] || '';
-				component = component.replace(key, this.loop(id, arrayKey, innerComponent, `\n${spaceBeforeKey}`));
+				const spaceBeforeKey = component.match(new RegExp(`(\n?[\t| ]*)${key}`))?.[1] || '';
+				component = component.replace(key, this.loop(id, arrayKey, innerComponent, spaceBeforeKey));
 
 				const idLookup: Record<string, string> = {}
 				const newPrefix = this.objectPrefixNotation(arrayKey);
@@ -88,7 +88,7 @@ export class TemplateEngine {
 						inputs[selector] = childInputs[childId];
 					});
 				});
-			
+		
 				blueprint[rootId] = dataRef.value.map((entry: Record<string, any>) => {
 					const childBlueprint = {};
 					Object.keys(entry).forEach((key) => replaceUuids(entry, key, newPrefix, newParents, childBlueprint, {}));

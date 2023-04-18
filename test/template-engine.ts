@@ -5,7 +5,7 @@ test("Ensure throws", (t: ExecutionContext) => {
    const templateEngine = new TemplateEngine('test', 'test', {});
 
 	t.throws(() => templateEngine.markdownBlock('_id'));
-	t.throws(() => templateEngine.loop('_id', '_arrayKey', '_innerComponent'));
+	t.throws(() => templateEngine.loop('_id', '_arrayKey', '_innerComponent', '_whitespace'));
 	t.throws(() => templateEngine.objectPrefixNotation('_id'));
 	t.throws(() => templateEngine.outputVariable('_id'));
 });

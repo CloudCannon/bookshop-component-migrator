@@ -44,10 +44,12 @@ export function isMarkdownElement(el: any): boolean {
         }
     }
 
-    for (let i = 0; i < el.children.length; i++) {
-        const childEl = el.children[i];
-        if (!isMarkdownElement(childEl)) {
-            return false;
+    if (el.children) {
+        for (let i = 0; i < el.children.length; i++) {
+            const childEl = el.children[i];
+            if (!isMarkdownElement(childEl)) {
+                return false;
+            }
         }
     }
 
@@ -63,12 +65,12 @@ export function convertHtmlToMarkdown(html: string, turndownOptions: Record<stri
 
 export function mergeSubsequentMarkdownBlocks(children: Record<string,any>[]): any[] {
     const merged: Record<string,any>[] = [];
-    let pendingWhitespace = null;
+    let pendingBlocks = [];
     children.forEach((block) => {
         const lastBlock = merged[merged.length - 1];
         if (lastBlock?.type === 'markdown') {
-            if (block.type === 'whitespace') {
-                pendingWhitespace = block;
+            if (block.type === 'whitespace' || block.type.startsWith('ignored')) {
+                pendingBlocks.push(block);
                 return
             }
 
@@ -78,21 +80,21 @@ export function mergeSubsequentMarkdownBlocks(children: Record<string,any>[]): a
 
                 const lastBlockKey = Object.keys(lastBlock.data)[0];
                 lastBlock.data[lastBlockKey].value += `\n\n${currentValue}`
-                pendingWhitespace = null;
+                pendingBlocks = [];
                 return;
             }
         }
 
-        if (pendingWhitespace) {
-            merged.push(pendingWhitespace)
-            pendingWhitespace = null;
+        if (pendingBlocks) {
+            merged.push(...pendingBlocks)
+            pendingBlocks = [];
         }
 
         merged.push(block);
     });
 
-    if (pendingWhitespace) {
-        merged.push(pendingWhitespace)
+    if (pendingBlocks) {
+        merged.push(...pendingBlocks)
     }
 
     return merged;
