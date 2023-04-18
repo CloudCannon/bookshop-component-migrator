@@ -52,84 +52,71 @@ export class TemplateEngine {
 
 		let count = 0;
 		let component = this.component;
-		const getId = (dataRef: Record<string, any>, key: string, prefix: string) : string => {
-			if (keyToIdLookup[key]) {
-				return keyToIdLookup[key];
+		const getCodeId = (dataRef: Record<string, any>, key: string, prefix: string) : string => {
+			if (!keyToIdLookup[key]) {
+				const editableAttr = editableAttrs[`${dataRef.element}${dataRef.attribute}`]
+					|| editableAttrs[dataRef.attribute];
+	
+				const suffix = editableAttr?.suffix || idTypeSuffixes[dataRef.type] || '';
+	
+				keyToIdLookup[key] = `${count++}${suffix}`;
 			}
-			const editableAttr = editableAttrs[`${dataRef.element}${dataRef.attribute}`]
-				|| editableAttrs[dataRef.attribute];
-
-			const suffix = editableAttr?.suffix || idTypeSuffixes[dataRef.type] || '';
-
-			const id = `${prefix}${count++}${suffix}`;
-			keyToIdLookup[key] = id;
-			return id;
+			return `${prefix}${keyToIdLookup[key]}`;
 		}
 		
-		const replaceUuids = (dataRefs: Record<string, any>, key: string, prefix: string, addToBluePrint: boolean): string => {
+		const replaceUuids = (dataRefs: Record<string, any>, key: string, prefix: string, parents: string[], blueprint, inputs): string => {
 			const dataRef = dataRefs[key];
 
-			const id = getId(dataRef, key, prefix);
+			const id = getCodeId(dataRef, key, prefix);
+			const rootId = id.substring(prefix.length);
 			if (dataRef.type === 'array') {
-				const arrayKey = 'item';
+				const newParents = [...parents, rootId];
+				const arrayKey = `item_${parents.length}`;
 				const innerComponent = dataRef.component;
 				component = component.replace(key, this.loop(id, arrayKey, innerComponent));
 
 				const idLookup: Record<string, string> = {}
-
+				const newPrefix = this.objectPrefixNotation(arrayKey);
 				Object.keys(dataRef.value[0]).forEach((key) => {
-					const prefix = this.objectPrefixNotation(arrayKey);
-					const childId = replaceUuids(dataRef.value[0], key, prefix, false)
-
-					const rootId = childId.substring(prefix.length)
-					idLookup[key] = rootId;
-
-					if (dataRef.value[0][key].type === 'markdown') {
-						bookshop._inputs[`${id}.${rootId}`] = {
-							type: 'markdown'
-						};
-					}
+					const childInputs = {}
+					const lookupId = replaceUuids(dataRef.value[0], key, newPrefix, newParents, {}, childInputs)
+					idLookup[key] = lookupId;
+					Object.keys(childInputs).forEach((childId) => {
+						const selector = [rootId, childId].join('.')
+						inputs[selector] = childInputs[childId];
+					});
 				});
 			
-				data[id] = dataRef.value.map((entry: Record<string, any>) => {
-					return Object.keys(entry).reduce((value: Record<string, any>, key: string) => {
-						value[idLookup[key]] = entry[key].value;
-						return value
-					}, {});
+				blueprint[rootId] = dataRef.value.map((entry: Record<string, any>) => {
+					const childBlueprint = {};
+					Object.keys(entry).forEach((key) => replaceUuids(entry, key, newPrefix, newParents, childBlueprint, {}));
+					return childBlueprint;
 				});
-
-				bookshop.blueprint[id] = data[id];
-				return id;
+				return rootId;
 			}
 
 			if (dataRef.type === 'markdown') {
 				component = component.replace(key, this.markdownBlock(id))
-				if (addToBluePrint) {
-					data[id] = dataRef.value;
-					bookshop._inputs[id] = {
-						type: 'markdown'
-					};
-					bookshop.blueprint[id] = data[id];
-				}
-				return id;
+				blueprint[rootId] = dataRef.value;
+				inputs[rootId] = {
+					type: 'markdown'
+				};
+				return rootId;
 			}
 			
 			component = component.replace(key, this.outputVariable(id))
 		
-			if (addToBluePrint) {
-				data[id] = dataRef.value;
-				bookshop.blueprint[id] = data[id];
-			}
-			return id;
+			blueprint[rootId] = dataRef.value;
+			return rootId;
 		};
 
-		Object.keys(this.data).forEach((key) => replaceUuids(this.data, key, '', true));
+		Object.keys(this.data).forEach((key) => replaceUuids(this.data, key, '', [], bookshop.blueprint, bookshop._inputs));
 
 		return {
 			bookshop,
 			component,
 			keyToIdLookup,
-			data
+			data: { ...bookshop.blueprint }
 		};
 	}
 

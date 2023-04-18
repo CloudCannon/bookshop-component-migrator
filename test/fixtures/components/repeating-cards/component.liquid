@@ -1,16 +1,16 @@
 <div class="container">
 	<div class="grid gap-x-6 gap-y-10 grid-cols-1 lg:grid-cols-3 mb-28 mt-5 sm:grid-cols-2 xl:grid-cols-4">
-		{% for item in 0_list %}
-		<a class="block transition relative bg-white border-2 border-carbon duration-200 flex-1 group hover:drop-shadow-xl hover:scale-105 pb-16 pt-10 px-5 rounded-xl" href="{{ item.6_url }}">
-			<img alt="{{ item.1_alt }}" class="h-16 w-auto" decoding="async" loading="lazy" src="{{ item.2_url }}" width="97" height="97" />
+		{% for item_0 in 0_list %}
+		<a class="block transition relative bg-white border-2 border-carbon duration-200 flex-1 group hover:drop-shadow-xl hover:scale-105 pb-16 pt-10 px-5 rounded-xl" href="{{ item_0.6_url }}">
+			<img alt="{{ item_0.1_alt }}" class="h-16 w-auto" decoding="async" loading="lazy" src="{{ item_0.2_url }}" width="97" height="97" />
 			<h3 class="font-bold mb-4 text-3xl mt-8">
-				{{ item.3 }}
+				{{ item_0.3 }}
 			</h3>
 			<p class="text-lg">
-				{{ item.4 }}
+				{{ item_0.4 }}
 			</p>
 			<p class="font-bold text-cc text-lg absolute bottom-[15px] group-hover:underline">
-				{{ item.5 }}
+				{{ item_0.5 }}
 				<span class="inline-block w-4 ml-[2px] relative top-[3px]">
 					<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 						<path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" stroke-linecap="round" stroke-linejoin="round"></path>

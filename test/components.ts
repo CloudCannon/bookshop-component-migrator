@@ -34,7 +34,8 @@ const components = [
   'repeating-cards',
   'repeating-products',
   'repeating-products-reversed',
-  'repeating-svgs'
+  'repeating-svgs',
+  'repeating-recursive',
 ]
 
 components.forEach((componentName) => {
@@ -50,7 +51,7 @@ components.forEach((componentName) => {
       } catch (err) {
         if (err.code === 'ENOENT') {
           t.log(`${componentName} has no ${templateEngineName} replacements test`)
-          break;
+          continue;
         }
         throw err;
       }

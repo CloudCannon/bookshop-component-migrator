@@ -1,0 +1,16 @@
+<div>
+	{% for item_0 in 0_list %}
+		<div>
+		{% for item_1 in item_0.1_list %}
+		<div>
+			<h4 class="heading">{{ item_1.2 }}</h4>
+			{{ item_1.3_markdown | markdownify }}<div>
+				{% for item_2 in item_1.4_list %}
+		<a class="link" href="{{ item_2.6_url }}">{{ item_2.5 }}</a>
+	{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+	{% endfor %}
+</div>

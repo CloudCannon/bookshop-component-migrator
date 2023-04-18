@@ -16,6 +16,27 @@ export function getUuid() {
 	});
 }
 
+function matchRepeatingBlockKeys(data, idealData): Record<string, any> {
+    const expectedKeys = Object.keys(idealData);
+    const actualKeys = Object.keys(data);
+    const newData: Record<string, any> = {};
+    for (let i = 0; i < expectedKeys.length; i++) {
+        const expectedKey = expectedKeys[i];
+        const actualKey = actualKeys[i];
+        if (idealData[expectedKey].type === 'array') {
+            newData[expectedKey] = {
+                ...idealData[expectedKey],
+                value: data[actualKey].value.map(
+                    (value, index) => matchRepeatingBlockKeys(value, idealData[expectedKey].value[index])
+                )
+            };
+        } else {
+            newData[expectedKey] = data[actualKey];
+        }
+    }
+    return newData;
+}
+
 const selfClosingTags: Record<string, boolean> = {
     area: true,
     base: true,
@@ -144,21 +165,13 @@ export function parseDomNode(node: any, templateContents: boolean): Record<strin
         const values: any[] = [];
 
         const first = children.find((block) => block.type !== 'whitespace');
-        const expectedKeys = Object.keys(first?.data);
         children.forEach((block) => {
             if (block.type === 'whitespace') {
                 return;
             }
 
-            const actualKeys = Object.keys(block.data);
-            const newData: Record<string, any> = {};
-            for (let i = 0; i < expectedKeys.length; i++) {
-                const expectedKey = expectedKeys[i];
-                const actualKey = actualKeys[i];
-                newData[expectedKey] = block.data[actualKey];
-            }
-            block.data = newData;
-            values.push(newData)
+            block.data = matchRepeatingBlockKeys(block.data, first?.data);
+            values.push(block.data);
         });
 
         const dataId = getUuid();
