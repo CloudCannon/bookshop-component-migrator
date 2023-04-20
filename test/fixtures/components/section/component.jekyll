@@ -1,0 +1,10 @@
+<section class="section" id="section">
+	<div class="container">
+		<div class="section-header">
+			<h2>
+				{{ include.0 }} <span>{{ include.1 }}</span>
+			</h2>
+			<p class="subheading">{{ include.2 }}</p>
+		</div>
+	</div>
+</section>

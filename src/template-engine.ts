@@ -156,6 +156,31 @@ export class LiquidTemplateEngine extends TemplateEngine {
 		return `{{ ${id} }}`;
 	}
 }
+
+const prependInclude = (id: string) : string => {
+	if(id.includes(".")) {
+		return id;
+	}
+	return `include.${id}`;
+}
+export class JekyllTemplateEngine extends TemplateEngine {
+
+	markdownBlock(id: string) {
+		return `{{ ${prependInclude(id)} | markdownify }}`
+	}
+
+	loop(id: string, arrayKey: string, innerComponent: string, whitespace: string) {
+		return `{% for ${arrayKey} in ${prependInclude(id)} %}${whitespace}${innerComponent}${whitespace}{% endfor %}`
+	}
+
+	objectPrefixNotation(id: string) {
+		return `${id}.`
+	}
+
+	outputVariable(id: string) {
+		return `{{ ${prependInclude(id)} }}`;
+	}
+}
 export class GoTemplateEngine extends TemplateEngine {
 	markdownBlock(id: string) {
 		return `{{ .${id} | markdownify }}`
@@ -176,5 +201,6 @@ export class GoTemplateEngine extends TemplateEngine {
 
 export const templateEngines = {
 	liquid: LiquidTemplateEngine,
-	go: GoTemplateEngine
+	go: GoTemplateEngine,
+	jekyll: JekyllTemplateEngine
 };
